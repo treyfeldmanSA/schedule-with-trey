@@ -5,377 +5,338 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book a Session | Success Academy</title>
     
-    <!-- Premium Designer Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+    <!-- Google Fonts for authentic typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     
     <style>
-        :root {
-            /* Success Academy Brand Colors */
-            --sa-orange: #F7941E;
-            --sa-navy: #005e9e;
-            --sa-yellow: #EDC211;
-            --sa-lightblue: #6ACDF4;
-        }
-
-        /* --- CORE: NO SCROLLING, WHITE BASE --- */
+        /* --- CORE BASE --- */
         html, body {
             margin: 0;
             padding: 0;
             width: 100vw;
             height: 100vh;
-            overflow: hidden; /* ABSOLUTELY NO SCROLLING */
-            font-family: 'Inter', sans-serif;
-            background: #ffffff;
-            color: #000000;
+            overflow: hidden; /* NO SCROLLING */
+            background-color: #ffffff;
+            font-family: 'Roboto', sans-serif;
+            color: #202124;
         }
 
-        /* --- HIGH-END SPLIT LAYOUT --- */
-        .layout {
-            display: flex;
-            width: 100vw;
-            height: 100vh;
-        }
-
-        /* --- LEFT PANEL: ARTSY & ANIMATED --- */
-        .left-panel {
-            flex: 0 0 45%;
-            max-width: 700px;
-            min-width: 500px;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 8%;
-            box-sizing: border-box;
-            border-right: 1px solid rgba(0,0,0,0.06); /* Subtle designer split line */
-            background: #ffffff; /* Base white as requested */
-            z-index: 10;
-        }
-
-        /* The "Artsy" Aurora Animations */
-        .aurora-container {
+        /* --- GOOGLE DEVELOPER ART BACKGROUND --- */
+        .background-art {
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            z-index: -3;
+            z-index: 1;
             overflow: hidden;
             background: #ffffff;
             pointer-events: none;
         }
 
-        .aurora-blob {
+        /* Animated SVG Sweeping Lines */
+        .google-lines {
             position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            mix-blend-mode: multiply; /* Creates deep watercolor blending */
-            animation: float 20s infinite alternate ease-in-out;
-            opacity: 0.6;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
         }
 
-        .blob-1 { background: var(--sa-orange); width: 450px; height: 450px; top: -100px; left: -100px; animation-delay: 0s; }
-        .blob-2 { background: var(--sa-lightblue); width: 400px; height: 400px; bottom: -50px; right: -50px; animation-delay: -5s; }
-        .blob-3 { background: var(--sa-yellow); width: 350px; height: 350px; top: 40%; left: 20%; animation-delay: -10s; }
-        .blob-4 { background: var(--sa-navy); width: 500px; height: 500px; bottom: 20%; left: -100px; animation-delay: -15s; opacity: 0.3; }
+        .anim-line {
+            stroke-dasharray: 800 1200;
+            animation: flowLine 25s linear infinite;
+        }
+        .blue-line { stroke: #4285F4; animation-duration: 30s; animation-direction: reverse; }
+        .red-line { stroke: #EA4335; animation-duration: 25s; }
+        .yellow-line { stroke: #FBBC05; animation-duration: 35s; }
+        .green-line { stroke: #34A853; animation-duration: 20s; animation-direction: reverse; }
+        .blue-line-2 { stroke: #4285F4; animation-duration: 28s; }
+        .red-line-2 { stroke: #EA4335; animation-duration: 22s; animation-direction: reverse; }
 
-        @keyframes float {
-            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
-            33% { transform: translate(100px, 50px) scale(1.1) rotate(15deg); }
-            66% { transform: translate(-50px, 100px) scale(0.9) rotate(-15deg); }
-            100% { transform: translate(-100px, -50px) scale(1.15) rotate(5deg); }
+        @keyframes flowLine {
+            from { stroke-dashoffset: 2000; }
+            to { stroke-dashoffset: 0; }
         }
 
-        /* Frosted Glass Overlay to make text perfectly readable */
-        .aurora-glass {
+        /* Floating Geometric Shapes */
+        .shape {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            z-index: -2;
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(60px);
-            -webkit-backdrop-filter: blur(60px);
-            pointer-events: none;
+            animation: floatShape 20s infinite ease-in-out alternate;
+        }
+        .circle { border-radius: 50%; }
+        .circle.solid.blue { width: 40px; height: 40px; background: #4285F4; }
+        .circle.hollow.red { width: 50px; height: 50px; border: 8px solid #EA4335; box-sizing: border-box; }
+        .circle.hollow.blue { width: 30px; height: 30px; border: 6px solid #4285F4; box-sizing: border-box; }
+        .triangle { width: 0; height: 0; border-left: 20px solid transparent; border-right: 20px solid transparent; border-bottom: 34px solid #34A853; }
+        .plus { width: 40px; height: 10px; background: #FBBC05; position: relative; }
+        .plus::after { content: ''; position: absolute; top: -15px; left: 15px; width: 10px; height: 40px; background: #FBBC05; }
+        .square.hollow.blue { width: 40px; height: 40px; border: 8px solid #4285F4; box-sizing: border-box; }
+        .dot { width: 14px; height: 14px; border-radius: 50%; }
+        .dot.red { background: #EA4335; }
+        .dot.green { background: #34A853; }
+        .dot.yellow { background: #FBBC05; }
+
+        @keyframes floatShape {
+            0% { transform: translateY(0) rotate(0deg) scale(1); }
+            100% { transform: translateY(-80px) rotate(180deg) scale(1.1); }
         }
 
-        /* Subtle Designer Noise Texture */
-        .noise-overlay {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            z-index: -1;
-            opacity: 0.3;
-            pointer-events: none;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-        }
-
-        /* Left Panel Content */
-        .content-wrapper {
+        /* --- LAYOUT STRUCTURE --- */
+        .layout {
             position: relative;
+            z-index: 2;
+            display: flex;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        /* --- LEFT PANEL --- */
+        .left-panel {
+            flex: 0 0 450px;
+            padding: 0 40px 0 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            /* Soft gradient ensures text is perfectly readable over the lines */
+            background: linear-gradient(to right, rgba(255,255,255,1) 60%, rgba(255,255,255,0) 100%);
             z-index: 10;
         }
 
-        .brand {
+        .logo {
             display: flex;
             align-items: center;
             gap: 12px;
-            font-size: 1.125rem;
-            font-weight: 600;
-            color: #000;
             margin-bottom: 80px;
-            letter-spacing: -0.02em;
         }
-
-        .brand-icon {
+        
+        .logo-icon {
             width: 24px;
             height: 24px;
-            background: conic-gradient(from 180deg at 50% 50%, var(--sa-orange) 0deg, var(--sa-yellow) 90deg, var(--sa-lightblue) 180deg, var(--sa-navy) 270deg, var(--sa-orange) 360deg);
-            border-radius: 6px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
-        .decorative-line {
-            width: 48px;
-            height: 4px;
-            background: var(--sa-navy);
-            border-radius: 2px;
-            margin-bottom: 32px;
+        .logo-text {
+            font-family: 'Outfit', sans-serif;
+            font-size: 22px;
+            font-weight: 500;
+            color: #5f6368;
+            letter-spacing: -0.5px;
         }
 
         h1 {
-            font-size: 4.5rem;
-            font-weight: 800;
-            line-height: 1.05;
-            letter-spacing: -0.04em;
-            color: #000;
-            margin: 0 0 24px 0;
+            font-family: 'Outfit', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #202124;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            letter-spacing: -1.5px;
         }
+        
+        h1 .dot-blue { color: #4285F4; }
 
         p {
+            font-family: 'Roboto', sans-serif;
             font-size: 1.125rem;
+            color: #5f6368;
             line-height: 1.6;
-            color: #555555;
-            margin: 0 0 48px 0;
-            max-width: 400px;
+            margin-bottom: 40px;
+            max-width: 320px;
         }
 
-        /* Beautiful Pill Duration Toggle */
-        .duration-controls {
-            position: relative;
+        /* Interactive Pill Selector */
+        .duration-selector {
             display: inline-flex;
-            background: rgba(255,255,255,0.6);
-            border: 1px solid rgba(255,255,255,0.8);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: #f1f3f4;
+            border-radius: 40px;
             padding: 6px;
-            border-radius: 100px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.06), inset 0 0 0 1px rgba(255,255,255,0.5);
+            width: max-content;
         }
 
-        .toggle-bg {
-            position: absolute;
-            top: 6px;
-            left: 0; /* Updated via JS */
-            height: calc(100% - 12px);
-            background: #ffffff;
-            border-radius: 100px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-            z-index: 1;
-        }
-
-        .dur-btn {
-            position: relative;
-            z-index: 2;
-            background: transparent;
+        .duration-btn {
+            padding: 12px 28px;
+            border-radius: 34px;
             border: none;
-            padding: 14px 32px;
-            font-family: 'Inter', sans-serif;
-            font-size: 1rem;
+            background: transparent;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.05rem;
             font-weight: 600;
-            color: #888888;
+            color: #5f6368;
             cursor: pointer;
-            transition: color 0.3s ease;
-            white-space: nowrap;
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
         }
 
-        .dur-btn:hover {
-            color: #444444;
+        .duration-btn:hover {
+            color: #202124;
         }
 
-        .dur-btn.active {
-            color: #000000;
+        .duration-btn.active {
+            background: #ffffff;
+            color: #1a73e8;
+            box-shadow: 0 2px 8px rgba(32,33,36,0.12);
         }
 
-        /* Entrance Animations */
-        .stagger-in {
-            opacity: 0;
-            transform: translateY(20px);
-            animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        .d-1 { animation-delay: 0.1s; }
-        .d-2 { animation-delay: 0.2s; }
-        .d-3 { animation-delay: 0.3s; }
-        .d-4 { animation-delay: 0.4s; }
-
-        @keyframes slideUp {
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- RIGHT PANEL: SEAMLESS WHITE CALENDAR --- */
+        /* --- RIGHT PANEL (SEAMLESS CALENDAR) --- */
         .right-panel {
             flex: 1;
-            height: 100vh;
-            background: #ffffff; /* Pure white to match the iframe background */
+            display: flex;
+            justify-content: flex-end;
             position: relative;
+            z-index: 5;
+        }
+
+        .calendar-wrapper {
+            width: 100%;
+            max-width: 950px;
+            height: 100%;
+            background: #ffffff; /* Solid white blocks the background art */
+            position: relative;
+            /* This shadow is the MAGIC: It casts a pure white soft fade to the left, 
+               making the background art seamlessly dissolve into the calendar */
+            box-shadow: -80px 0 80px 40px #ffffff;
         }
 
         iframe {
             width: 100%;
             height: 100%;
-            border: none; /* NO BORDERS = SEAMLESS BLEND */
-            transition: opacity 0.4s ease, filter 0.4s ease;
+            border: none;
+            position: relative;
+            z-index: 5;
+            opacity: 1;
+            transition: opacity 0.3s ease;
         }
 
-        /* Elegant Progress Bar for Iframe Switch */
-        .loading-bar {
+        /* Loading Google Dots Overlay */
+        .loading-dots {
             position: absolute;
-            top: 0; 
-            left: -30%; 
-            width: 30%; 
-            height: 3px;
-            background: var(--sa-orange);
-            z-index: 100;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            gap: 8px;
+            z-index: 2; /* Sits behind iframe, visible when iframe opacity drops */
             opacity: 0;
             transition: opacity 0.3s;
         }
 
-        .loading-bar.active {
+        .loading-dots.active {
             opacity: 1;
-            animation: loadingSweep 1.2s infinite cubic-bezier(0.65, 0, 0.35, 1);
         }
 
-        @keyframes loadingSweep {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(500%); }
+        .loading-dots .dot {
+            width: 14px; height: 14px;
+            border-radius: 50%;
+            animation: googleBounce 1.4s infinite ease-in-out both;
+        }
+        .loading-dots .blue { background: #4285F4; animation-delay: -0.32s; }
+        .loading-dots .red { background: #EA4335; animation-delay: -0.16s; }
+        .loading-dots .yellow { background: #FBBC05; animation-delay: -0.08s; }
+        .loading-dots .green { background: #34A853; animation-delay: 0s; }
+
+        @keyframes googleBounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
         }
 
-        /* Mobile Responsiveness */
+        /* Mobile */
         @media (max-width: 900px) {
-            .layout {
-                flex-direction: column;
-            }
+            .layout { flex-direction: column; }
             .left-panel {
                 flex: none;
                 width: 100%;
-                min-width: 0;
                 padding: 40px 24px;
-                border-right: none;
-                border-bottom: 1px solid rgba(0,0,0,0.06);
+                background: linear-gradient(to bottom, rgba(255,255,255,1) 80%, rgba(255,255,255,0) 100%);
             }
-            h1 { font-size: 3.5rem; }
-            .right-panel {
-                flex: 1;
-                /* Maintains no scrolling on body, allows iframe to compress naturally */
+            .calendar-wrapper {
+                box-shadow: 0 -80px 80px 40px #ffffff;
             }
         }
     </style>
 </head>
 <body>
 
+    <!-- Google Developer Art Background -->
+    <div class="background-art">
+        <svg class="google-lines" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+            <path d="M-200,800 C 100,700 400,200 1200,300" fill="none" stroke-width="6" class="anim-line blue-line" />
+            <path d="M-200,200 C 200,400 600,900 1200,600" fill="none" stroke-width="10" class="anim-line red-line" />
+            <path d="M 300,-200 C 200,300 800,800 600,1200" fill="none" stroke-width="5" class="anim-line yellow-line" />
+            <path d="M 800,-200 C 700,200 100,600 300,1200" fill="none" stroke-width="8" class="anim-line green-line" />
+            <path d="M-200,500 C 300,600 700,100 1200,200" fill="none" stroke-width="4" class="anim-line blue-line-2" />
+            <path d="M 0,1200 C 400,800 500,200 1200,900" fill="none" stroke-width="6" class="anim-line red-line-2" />
+        </svg>
+        <div class="shapes">
+            <div class="shape circle solid blue" style="top: 20%; left: 30%; animation-delay: 0s;"></div>
+            <div class="shape circle hollow red" style="top: 70%; left: 10%; animation-delay: -3s;"></div>
+            <div class="shape triangle green" style="top: 80%; left: 35%; animation-delay: -7s;"></div>
+            <div class="shape plus yellow" style="top: 15%; left: 55%; animation-delay: -2s;"></div>
+            <div class="shape square hollow blue" style="top: 45%; left: 45%; animation-delay: -5s;"></div>
+            <div class="shape dot red" style="top: 50%; left: 20%; animation-delay: -1s;"></div>
+            <div class="shape dot green" style="top: 30%; left: 10%; animation-delay: -4s;"></div>
+            <div class="shape dot yellow" style="top: 85%; left: 25%; animation-delay: -6s;"></div>
+        </div>
+    </div>
+
+    <!-- UI Layout -->
     <div class="layout">
-        
-        <!-- ARTSY LEFT PANEL -->
         <div class="left-panel">
-            
-            <!-- Animated Aurora Background -->
-            <div class="aurora-container">
-                <div class="aurora-blob blob-1"></div>
-                <div class="aurora-blob blob-2"></div>
-                <div class="aurora-blob blob-3"></div>
-                <div class="aurora-blob blob-4"></div>
-                <div class="aurora-glass"></div>
-                <div class="noise-overlay"></div>
+            <div class="logo">
+                <svg class="logo-icon" viewBox="0 0 24 24">
+                    <path d="M12 2 L22 20 H2 Z" fill="#4285F4" opacity="0.9"/>
+                    <circle cx="12" cy="14" r="6" fill="#FBBC05" opacity="0.9"/>
+                    <path d="M12 22 L2 4 H22 Z" fill="#EA4335" opacity="0.7"/>
+                </svg>
+                <span class="logo-text">Success Academy</span>
             </div>
             
-            <div class="content-wrapper">
-                <div class="brand stagger-in d-1">
-                    <div class="brand-icon"></div>
-                    Success Academy
-                </div>
-                
-                <div class="decorative-line stagger-in d-2"></div>
-                <h1 class="stagger-in d-3">Book a session<br>with Trey.</h1>
-                <p class="stagger-in d-4">Select your desired duration below. The calendar on the right will instantly update with available times.</p>
-                
-                <div class="duration-controls stagger-in d-4">
-                    <div class="toggle-bg" id="toggleBg"></div>
-                    <button class="dur-btn" data-url="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0I-Zl9F8XEN-aSFW6Exph-jst-9yMMwbEGoyYQH0yKJh4P95Xa3UFwohtAM3iOoBNpabXyPi0C?gv=true">15 Min</button>
-                    <button class="dur-btn active" data-url="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2g_Gq44x_A6rLNj2kRONtMIu2tGLrMjBMH5WfKsopBS9hHYDscMpvL34e9fTZIOKuRvkflvgCc?gv=true">30 Min</button>
-                    <button class="dur-btn" data-url="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1GgmXp1kslcwHCAENqOeCN6qs5nG9fGZnbdEVz8fIBpK4E2Uvi-9SQCzN-w5tNe8BeTs77cHhF?gv=true">60 Min</button>
-                </div>
+            <h1>Book a session<span class="dot-blue">.</span></h1>
+            <p>Select your desired duration below. The calendar instantly updates to show available times.</p>
+            
+            <div class="duration-selector">
+                <button class="duration-btn" data-url="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0I-Zl9F8XEN-aSFW6Exph-jst-9yMMwbEGoyYQH0yKJh4P95Xa3UFwohtAM3iOoBNpabXyPi0C?gv=true">15 Min</button>
+                <button class="duration-btn active" data-url="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2g_Gq44x_A6rLNj2kRONtMIu2tGLrMjBMH5WfKsopBS9hHYDscMpvL34e9fTZIOKuRvkflvgCc?gv=true">30 Min</button>
+                <button class="duration-btn" data-url="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1GgmXp1kslcwHCAENqOeCN6qs5nG9fGZnbdEVz8fIBpK4E2Uvi-9SQCzN-w5tNe8BeTs77cHhF?gv=true">60 Min</button>
             </div>
         </div>
 
-        <!-- SEAMLESS WHITE RIGHT PANEL -->
         <div class="right-panel">
-            <div class="loading-bar" id="loadingBar"></div>
-            <iframe id="calendarFrame" src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2g_Gq44x_A6rLNj2kRONtMIu2tGLrMjBMH5WfKsopBS9hHYDscMpvL34e9fTZIOKuRvkflvgCc?gv=true" title="Schedule an Appointment"></iframe>
+            <div class="calendar-wrapper">
+                <div class="loading-dots" id="loadingDots">
+                    <div class="dot blue"></div>
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <iframe id="calendarFrame" src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2g_Gq44x_A6rLNj2kRONtMIu2tGLrMjBMH5WfKsopBS9hHYDscMpvL34e9fTZIOKuRvkflvgCc?gv=true"></iframe>
+            </div>
         </div>
-
     </div>
 
     <script>
-        const toggleBg = document.getElementById('toggleBg');
-        const buttons = document.querySelectorAll('.dur-btn');
+        const buttons = document.querySelectorAll('.duration-btn');
         const iframe = document.getElementById('calendarFrame');
-        const loadingBar = document.getElementById('loadingBar');
+        const loadingDots = document.getElementById('loadingDots');
 
-        // Function to beautifully animate the pill background
-        function updateToggle(button) {
-            const containerRect = button.parentElement.getBoundingClientRect();
-            const btnRect = button.getBoundingClientRect();
-            
-            // Calculate exact position relative to the container
-            const relativeLeft = btnRect.left - containerRect.left;
-            
-            toggleBg.style.width = `${btnRect.width}px`;
-            toggleBg.style.transform = `translateX(${relativeLeft}px)`;
-        }
-
-        // Initialize toggle on the active button
-        window.addEventListener('load', () => {
-            const activeBtn = document.querySelector('.dur-btn.active');
-            if (activeBtn) updateToggle(activeBtn);
-        });
-
-        // Ensure toggle stays aligned on resize
-        window.addEventListener('resize', () => {
-            const activeBtn = document.querySelector('.dur-btn.active');
-            if(activeBtn) updateToggle(activeBtn);
-        });
-
-        // Handle clicks
-        buttons.forEach((btn) => {
+        buttons.forEach(btn => {
             btn.addEventListener('click', function() {
                 if(this.classList.contains('active')) return;
 
-                // Move toggle background
-                updateToggle(this);
+                const url = this.getAttribute('data-url');
 
-                // Update classes
+                // Update UI state
                 buttons.forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
-
-                // Elegant Loading Animation
-                const url = this.getAttribute('data-url');
-                iframe.style.opacity = '0.3';
-                iframe.style.filter = 'blur(8px)';
-                loadingBar.classList.add('active');
-
+                
+                // Show Google bouncing dots
+                iframe.style.opacity = '0';
+                loadingDots.classList.add('active');
+                
+                // Load new calendar
                 setTimeout(() => {
                     iframe.src = url;
-                }, 300); // Wait a tiny bit for the blur/loader to transition in
+                }, 300);
 
+                // Reveal seamless calendar
                 setTimeout(() => {
                     iframe.style.opacity = '1';
-                    iframe.style.filter = 'blur(0px)';
-                    loadingBar.classList.remove('active');
+                    loadingDots.classList.remove('active');
                 }, 1200);
             });
         });
