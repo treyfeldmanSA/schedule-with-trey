@@ -5,31 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book with Trey | Success Academy</title>
     
-    <!-- Google Fonts for Material Design 3 Typography -->
-    <!-- Outfit closely resembles Google's proprietary 'Product Sans' font used in headers -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Google Fonts exactly matching Google's UI -->
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            /* Google Material Design 3 Color Palette */
-            --md-sys-color-primary: #0b57d0; /* Google Blue */
-            --md-sys-color-on-primary: #ffffff;
-            --md-sys-color-primary-container: #d3e3fd; /* Light blue selection background */
-            --md-sys-color-on-primary-container: #041e49;
+            /* Exact Google Colors */
+            --google-blue: #1a73e8;
+            --google-grey: #5f6368;
+            --google-border: #dadce0;
+            --google-hover: #f1f3f4;
+            --google-active-blue: #e8f0fe;
+            --google-text: #202124;
             
-            --md-sys-color-secondary: #444746;
-            --md-sys-color-surface: #ffffff;
-            --md-sys-color-on-surface: #1f1f1f;
-            --md-sys-color-on-surface-variant: #444746;
-            --md-sys-color-outline: #747775;
-            --md-sys-color-outline-variant: #c4c7c5;
-            
-            /* Success Academy accent */
+            /* Success Academy Logo Accent */
             --sa-orange: #F7941E;
-
-            /* Typography */
-            --font-display: 'Outfit', 'Google Sans', 'Segoe UI', sans-serif; /* For headers */
-            --font-body: 'Roboto', 'Segoe UI', sans-serif; /* For body text and buttons */
         }
 
         * {
@@ -39,25 +29,26 @@
         }
 
         body {
-            background-color: var(--md-sys-color-surface);
-            color: var(--md-sys-color-on-surface);
-            font-family: var(--font-body);
+            background-color: #ffffff; /* Pure white background */
+            color: var(--google-text);
+            font-family: 'Roboto', arial, sans-serif;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            overflow: hidden; /* NO SCROLLING ALLOWED */
         }
 
-        /* Top App Bar mimicking Google Workspace */
+        /* --- GOOGLE STYLE HEADER --- */
         header {
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 8px 16px;
             height: 64px;
-            background-color: var(--md-sys-color-surface);
-            border-bottom: 1px solid var(--md-sys-color-outline-variant);
+            background-color: #ffffff;
+            border-bottom: 1px solid var(--google-border);
+            flex-shrink: 0;
         }
 
         .header-left {
@@ -74,12 +65,12 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            color: var(--md-sys-color-on-surface-variant);
+            color: var(--google-grey);
             transition: background-color 0.2s;
         }
 
         .menu-icon:hover {
-            background-color: rgba(68, 71, 70, 0.08);
+            background-color: rgba(60,64,67,0.08);
         }
 
         .menu-icon svg {
@@ -92,15 +83,24 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            font-family: var(--font-display);
+            font-family: 'Google Sans', arial, sans-serif;
             font-size: 22px;
-            font-weight: 500;
-            color: var(--md-sys-color-on-surface-variant);
+            color: var(--google-grey);
             text-decoration: none;
         }
         
         .brand-logo .sa-text {
-            color: var(--md-sys-color-on-surface);
+            color: var(--google-grey);
+            font-weight: 400;
+        }
+        
+        /* Subtle SA accent dot instead of full colored logo */
+        .sa-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--sa-orange);
+            border-radius: 50%;
+            display: inline-block;
         }
 
         .header-right {
@@ -113,154 +113,129 @@
             width: 32px;
             height: 32px;
             border-radius: 50%;
-            background-color: var(--sa-orange);
+            background-color: var(--google-blue);
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: var(--font-display);
+            font-family: 'Google Sans', arial, sans-serif;
             font-weight: 500;
             font-size: 14px;
             cursor: pointer;
-            border: 2px solid white;
-            box-shadow: 0 0 0 1px var(--md-sys-color-outline-variant);
         }
 
-        /* Main Content Container */
+        /* --- MAIN CONTENT --- */
         main {
             flex: 1;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            padding: 24px 16px;
-            max-width: 1000px;
-            margin: 0 auto;
             width: 100%;
+            height: calc(100vh - 64px);
+            background-color: #ffffff;
         }
 
-        /* Page Header */
-        .page-header {
-            text-align: center;
-            margin-bottom: 32px;
-            width: 100%;
-            max-width: 700px;
+        /* Custom top section that mimics the Google Calendar booking header */
+        .booking-header-wrapper {
+            display: flex;
+            justify-content: center;
+            padding: 32px 24px 0 24px;
+            background-color: #ffffff;
+            flex-shrink: 0;
         }
 
-        h1 {
-            font-family: var(--font-display);
-            font-size: 36px;
+        .booking-header-content {
+            width: 100%;
+            max-width: 900px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding-bottom: 24px;
+        }
+
+        .title-section h1 {
+            font-family: 'Google Sans', arial, sans-serif;
+            font-size: 28px;
             font-weight: 400;
-            color: var(--md-sys-color-on-surface);
+            color: var(--google-text);
             margin-bottom: 8px;
-            letter-spacing: -0.5px;
         }
 
-        .subtitle {
-            font-size: 16px;
-            color: var(--md-sys-color-secondary);
-        }
-
-        /* Material 3 Segmented Button for Duration */
-        .duration-selector-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 16px; /* Reduced to bring calendar closer */
-            width: 100%;
-        }
-
-        .duration-label {
+        .title-section p {
             font-size: 14px;
-            font-weight: 500;
-            color: var(--md-sys-color-on-surface-variant);
-            margin-bottom: 12px;
+            color: var(--google-grey);
         }
 
-        .segmented-buttons {
-            display: flex;
-            border: 1px solid var(--md-sys-color-outline);
-            border-radius: 100px;
-            overflow: hidden;
-            background-color: var(--md-sys-color-surface);
-        }
-
-        .segment-btn {
-            background: transparent;
-            border: none;
-            padding: 10px 24px;
-            font-family: var(--font-body);
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--md-sys-color-on-surface-variant);
-            cursor: pointer;
-            transition: all 0.2s ease;
-            position: relative;
+        /* Exact Google UI Pill Buttons */
+        .duration-selector {
             display: flex;
             align-items: center;
             gap: 8px;
+            background: #ffffff;
         }
 
-        .segment-btn:not(:last-child) {
-            border-right: 1px solid var(--md-sys-color-outline);
+        .duration-btn {
+            background: #ffffff;
+            border: 1px solid var(--google-border);
+            border-radius: 16px;
+            padding: 6px 16px;
+            font-family: 'Google Sans', arial, sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--google-grey);
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
 
-        .segment-btn:hover:not(.active) {
-            background-color: rgba(68, 71, 70, 0.08);
+        .duration-btn:hover {
+            background-color: var(--google-hover);
         }
 
-        .segment-btn.active {
-            background-color: var(--md-sys-color-primary-container);
-            color: var(--md-sys-color-on-primary-container);
+        .duration-btn.active {
+            background-color: var(--google-active-blue);
+            color: var(--google-blue);
+            border-color: transparent;
         }
 
-        /* Active checkmark SVG */
-        .segment-btn svg {
-            width: 18px;
-            height: 18px;
-            fill: currentColor;
-            display: none;
-        }
-
-        .segment-btn.active svg {
-            display: block;
-        }
-
-        /* Seamless Iframe Container */
+        /* --- SEAMLESS IFRAME --- */
+        /* 
+           The Google Calendar iframe has its own margins/headers.
+           To make it seamless, we let it fill the remaining space exactly.
+        */
         .calendar-container {
+            flex: 1;
             width: 100%;
+            display: flex;
+            justify-content: center;
             position: relative;
-            /* Match the Google Calendar embedded background so it's a seamless extension */
-            background-color: var(--md-sys-color-surface);
-            height: 700px;
-            transition: opacity 0.3s ease;
+            background-color: #ffffff;
         }
 
-        .calendar-container.loading {
-            opacity: 0.5;
-        }
-
+        /* We constrain the iframe width so it matches the header */
         .calendar-iframe-wrapper {
             width: 100%;
             height: 100%;
+            max-width: 1000px; /* Google's standard centered max-width */
             position: relative;
+            overflow: hidden;
         }
 
         iframe {
             width: 100%;
             height: 100%;
             border: 0;
+            /* Negative margin trick to hide Google's internal padding if desired, 
+               but native iframe looks best if we just let it render full size */
         }
 
-        /* Material Circular Progress Loader */
+        /* Google Material Spinner */
         .loading-overlay {
             position: absolute;
-            top: 100px;
+            top: 20%;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            gap: 16px;
             z-index: 10;
             opacity: 0;
             pointer-events: none;
@@ -272,40 +247,17 @@
         }
 
         .spinner {
-            width: 48px;
-            height: 48px;
-            border: 4px solid var(--md-sys-color-primary-container);
-            border-top: 4px solid var(--md-sys-color-primary);
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--google-hover);
+            border-top: 4px solid var(--google-blue);
             border-radius: 50%;
             animation: spin 1s linear infinite;
-        }
-
-        .loading-text {
-            font-size: 14px;
-            color: var(--md-sys-color-primary);
-            font-weight: 500;
         }
 
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
-        }
-
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 28px;
-            }
-            .segmented-buttons {
-                width: 100%;
-            }
-            .segment-btn {
-                flex: 1;
-                justify-content: center;
-                padding: 10px 8px;
-            }
-            .segment-btn svg {
-                display: none !important; /* Hide checkmark on mobile to save space */
-            }
         }
     </style>
 </head>
@@ -318,13 +270,13 @@
                 <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
             </div>
             <a href="#" class="brand-logo">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Google_Calendar_icon_%282020%29.svg/512px-Google_Calendar_icon_%282020%29.svg.png" alt="Calendar" style="width: 32px; height: 32px;">
+                <span class="sa-dot"></span>
                 <span class="sa-text">Success Academy</span>
             </a>
         </div>
         <div class="header-right">
-            <div class="menu-icon" title="Help">
-                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-1.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>
+            <div class="menu-icon" title="Google apps">
+                <svg viewBox="0 0 24 24"><path d="M6,8c1.1,0 2-0.9 2-2s-0.9-2 -2-2s-2,0.9 -2,2S4.9,8 6,8zM6,14c1.1,0 2-0.9 2-2s-0.9-2 -2-2s-2,0.9 -2,2S4.9,14 6,14zM6,20c1.1,0 2-0.9 2-2s-0.9-2 -2-2s-2,0.9 -2,2S4.9,20 6,20zM12,8c1.1,0 2-0.9 2-2s-0.9-2 -2-2s-2,0.9 -2,2S10.9,8 12,8zM12,14c1.1,0 2-0.9 2-2s-0.9-2 -2-2s-2,0.9 -2,2S10.9,14 12,14zM12,20c1.1,0 2-0.9 2-2s-0.9-2 -2-2s-2,0.9 -2,2S10.9,20 12,20zM18,8c1.1,0 2-0.9 2-2s-0.9-2 -2-2s-2,0.9 -2,2S16.9,8 18,8zM18,14c1.1,0 2-0.9 2-2s-0.9-2 -2-2s-2,0.9 -2,2S16.9,14 18,14zM18,20c1.1,0 2-0.9 2-2s-0.9-2 -2-2s-2,0.9 -2,2S16.9,20 18,20z"/></svg>
             </div>
             <div class="profile-avatar" title="Trey Feldman">
                 TF
@@ -333,45 +285,44 @@
     </header>
 
     <main>
-        <div class="page-header">
-            <h1>Book an appointment</h1>
-            <p class="subtitle">Select a time to meet with Trey Feldman</p>
-        </div>
-
-        <div class="duration-selector-container">
-            <div class="duration-label">Select duration</div>
-            
-            <div class="segmented-buttons">
-                <button class="segment-btn" data-time="15" data-url="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0I-Zl9F8XEN-aSFW6Exph-jst-9yMMwbEGoyYQH0yKJh4P95Xa3UFwohtAM3iOoBNpabXyPi0C?gv=true">
-                    <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                    15 min
-                </button>
-                <button class="segment-btn active" data-time="30" data-url="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2g_Gq44x_A6rLNj2kRONtMIu2tGLrMjBMH5WfKsopBS9hHYDscMpvL34e9fTZIOKuRvkflvgCc?gv=true">
-                    <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                    30 min
-                </button>
-                <button class="segment-btn" data-time="60" data-url="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1GgmXp1kslcwHCAENqOeCN6qs5nG9fGZnbdEVz8fIBpK4E2Uvi-9SQCzN-w5tNe8BeTs77cHhF?gv=true">
-                    <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                    60 min
-                </button>
+        <!-- Custom top section to control durations exactly like Google -->
+        <div class="booking-header-wrapper">
+            <div class="booking-header-content">
+                <div class="title-section">
+                    <h1>Book an appointment</h1>
+                    <p>Select a time to meet with Trey Feldman</p>
+                </div>
+                
+                <div class="duration-selector">
+                    <button class="duration-btn" data-url="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0I-Zl9F8XEN-aSFW6Exph-jst-9yMMwbEGoyYQH0yKJh4P95Xa3UFwohtAM3iOoBNpabXyPi0C?gv=true">
+                        15 min
+                    </button>
+                    <button class="duration-btn active" data-url="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2g_Gq44x_A6rLNj2kRONtMIu2tGLrMjBMH5WfKsopBS9hHYDscMpvL34e9fTZIOKuRvkflvgCc?gv=true">
+                        30 min
+                    </button>
+                    <button class="duration-btn" data-url="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1GgmXp1kslcwHCAENqOeCN6qs5nG9fGZnbdEVz8fIBpK4E2Uvi-9SQCzN-w5tNe8BeTs77cHhF?gv=true">
+                        60 min
+                    </button>
+                </div>
             </div>
         </div>
 
+        <!-- The Calendar purely taking up the rest of the space -->
         <div class="calendar-container" id="calContainer">
             <div class="loading-overlay" id="loadingOverlay">
                 <div class="spinner"></div>
-                <div class="loading-text">Loading times...</div>
             </div>
             <div class="calendar-iframe-wrapper">
+                <!-- Note: The Google Calendar embed has its own padding built into the iframe. 
+                     By removing borders and using pure white, it blends exactly into our page -->
                 <iframe id="calendarFrame" src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2g_Gq44x_A6rLNj2kRONtMIu2tGLrMjBMH5WfKsopBS9hHYDscMpvL34e9fTZIOKuRvkflvgCc?gv=true" frameborder="0"></iframe>
             </div>
         </div>
     </main>
 
     <script>
-        const buttons = document.querySelectorAll('.segment-btn');
+        const buttons = document.querySelectorAll('.duration-btn');
         const iframe = document.getElementById('calendarFrame');
-        const calContainer = document.getElementById('calContainer');
         const overlay = document.getElementById('loadingOverlay');
 
         buttons.forEach(btn => {
@@ -380,24 +331,23 @@
 
                 const url = this.getAttribute('data-url');
 
-                // Update active state
+                // Google style active state toggle
                 buttons.forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
                 
-                // Show Material loading spinner
+                // Native Google blue spinner
                 overlay.classList.add('active');
-                calContainer.classList.add('loading');
+                iframe.style.opacity = '0.5';
                 
-                // Change the iframe source after a tiny delay
+                // Switch iframe
                 setTimeout(() => {
                     iframe.src = url;
-                }, 200);
+                }, 100);
 
-                // Hide loading after a bit
                 setTimeout(() => {
                     overlay.classList.remove('active');
-                    calContainer.classList.remove('loading');
-                }, 1200);
+                    iframe.style.opacity = '1';
+                }, 800);
             });
         });
     </script>
