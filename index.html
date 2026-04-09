@@ -595,8 +595,14 @@
             svg.setAttribute("viewBox", "0 0 400 400");
             svg.classList.add('cloud-svg');
             
-            // Every 6th cloud should be SA Orange instead of Salesforce Blue
-            if ((i + 1) % 6 === 0) {
+            // "Every 5-7th cloud should be SA orange"
+            // We use a bit of math to make it roughly every 5th, 6th, or 7th cloud predictably
+            // but we can also just do a 15-20% chance if we want it to feel organic.
+            // Let's implement a strict counter to ensure it's precisely every 5 to 7.
+            // But since this is a loop, we can just check if i % 6 === 0 (every 6th) or inject some randomness.
+            // A simple randomized check: 
+            const isOrange = (i % 6 === 5) || (Math.random() > 0.85);
+            if (isOrange) {
                 svg.style.fill = '#F7941E'; 
             }
             
@@ -605,18 +611,22 @@
             svg.appendChild(path);
             
             // Make all clouds larger in general
-            const size = Math.random() * 400 + 200; // 200px to 600px wide
-            const top = Math.random() * 40; // Top 40% of the screen
+            const size = Math.random() * 500 + 300; // 300px to 800px wide
+            const top = Math.random() * 45; // Top 45% of the screen
             
             // 3D Parallax Effect:
             // Smaller clouds are further away in the background, so they should move slower (longer duration)
-            // Size 200px -> ~140s duration. Size 600px -> ~30s duration.
-            const duration = 140 - ((size - 200) / 400) * 110; 
+            // Base duration tied to size: Size 300px -> ~150s duration. Size 800px -> ~40s duration.
+            const baseDuration = 150 - ((size - 300) / 500) * 110; 
+            
+            // Ensure NO TWO CLOUDS move at the same pace by adding a completely random variance (+/- 15 seconds)
+            const durationVariance = (Math.random() * 30) - 15;
+            const duration = baseDuration + durationVariance;
             
             // Depth effect: smaller clouds in the background are slightly more faded
-            const opacity = 0.15 + ((size - 200) / 400) * 0.4;
+            const opacity = 0.15 + ((size - 300) / 500) * 0.5;
             
-            const delay = Math.random() * -140; // Spread evenly across the timeline
+            const delay = Math.random() * -180; // Spread evenly across a massive timeline so they don't clump
             
             svg.style.width = `${size}px`;
             svg.style.height = `${size}px`;
