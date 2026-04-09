@@ -3,556 +3,341 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TREY FELDMAN // SCHEDULING</title>
+    <title>Book a Session | Success Academy</title>
     
-    <!-- Retro 80s Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Righteous&family=VT323&display=swap" rel="stylesheet">
+    <!-- Google Fonts for authentic typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     
     <style>
-        :root {
-            /* Success Academy Brand Colors - Neonified for the 80s */
-            --sa-orange: #F7941E;
-            --sa-navy: #005E9E;
-            --sa-yellow: #EDC211;
-            --sa-lightblue: #6ACDF4;
-            
-            --bg-color: #050510;
-            --grid-color: var(--sa-navy);
-            --glow-orange: 0 0 10px #F7941E, 0 0 20px #F7941E, 0 0 40px #F7941E;
-            --glow-blue: 0 0 10px var(--sa-lightblue), 0 0 20px var(--sa-lightblue), 0 0 40px var(--sa-lightblue);
-            --glow-yellow: 0 0 10px var(--sa-yellow), 0 0 20px var(--sa-yellow), 0 0 40px var(--sa-yellow);
-        }
-
-        * {
-            box-sizing: border-box;
+        /* --- CORE BASE --- */
+        html, body {
             margin: 0;
             padding: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden; /* NO SCROLLING */
+            background-color: #ffffff;
+            font-family: 'Roboto', sans-serif;
+            color: #202124;
         }
 
-        body {
-            background-color: var(--bg-color);
-            color: #fff;
-            font-family: 'Righteous', cursive;
-            min-height: 100vh;
-            overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        /* --- GOOGLE DEVELOPER ART BACKGROUND --- */
+        .background-art {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: 1;
+            overflow: hidden;
+            background: #ffffff;
+            pointer-events: none;
+        }
+
+        /* Animated SVG Sweeping Lines */
+        .google-lines {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+
+        .anim-line {
+            stroke-dasharray: 800 1200;
+            animation: flowLine 25s linear infinite;
+        }
+        .blue-line { stroke: #4285F4; animation-duration: 30s; animation-direction: reverse; }
+        .red-line { stroke: #EA4335; animation-duration: 25s; }
+        .yellow-line { stroke: #FBBC05; animation-duration: 35s; }
+        .green-line { stroke: #34A853; animation-duration: 20s; animation-direction: reverse; }
+        .blue-line-2 { stroke: #4285F4; animation-duration: 28s; }
+        .red-line-2 { stroke: #EA4335; animation-duration: 22s; animation-direction: reverse; }
+
+        @keyframes flowLine {
+            from { stroke-dashoffset: 2000; }
+            to { stroke-dashoffset: 0; }
+        }
+
+        /* Floating Geometric Shapes */
+        .shape {
+            position: absolute;
+            animation: floatShape 20s infinite ease-in-out alternate;
+        }
+        .circle { border-radius: 50%; }
+        .circle.solid.blue { width: 40px; height: 40px; background: #4285F4; }
+        .circle.hollow.red { width: 50px; height: 50px; border: 8px solid #EA4335; box-sizing: border-box; }
+        .circle.hollow.blue { width: 30px; height: 30px; border: 6px solid #4285F4; box-sizing: border-box; }
+        .triangle { width: 0; height: 0; border-left: 20px solid transparent; border-right: 20px solid transparent; border-bottom: 34px solid #34A853; }
+        .plus { width: 40px; height: 10px; background: #FBBC05; position: relative; }
+        .plus::after { content: ''; position: absolute; top: -15px; left: 15px; width: 10px; height: 40px; background: #FBBC05; }
+        .square.hollow.blue { width: 40px; height: 40px; border: 8px solid #4285F4; box-sizing: border-box; }
+        .dot { width: 14px; height: 14px; border-radius: 50%; }
+        .dot.red { background: #EA4335; }
+        .dot.green { background: #34A853; }
+        .dot.yellow { background: #FBBC05; }
+
+        @keyframes floatShape {
+            0% { transform: translateY(0) rotate(0deg) scale(1); }
+            100% { transform: translateY(-80px) rotate(180deg) scale(1.1); }
+        }
+
+        /* --- LAYOUT STRUCTURE --- */
+        .layout {
             position: relative;
-        }
-
-        /* CRT Screen Scanlines */
-        body::after {
-            content: " ";
-            display: block;
-            position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
             z-index: 2;
-            background-size: 100% 4px, 6px 100%;
-            pointer-events: none;
+            display: flex;
+            width: 100vw;
+            height: 100vh;
         }
 
-        /* 80s Synthwave Grid Background */
-        .grid-container {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 60vh;
-            perspective: 600px;
-            z-index: -1;
-            overflow: hidden;
-        }
-
-        .grid {
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            bottom: -50%;
-            left: -50%;
-            background-image: 
-                linear-gradient(to right, rgba(106, 205, 244, 0.3) 1px, transparent 1px),
-                linear-gradient(to top, rgba(106, 205, 244, 0.3) 1px, transparent 1px);
-            background-size: 50px 50px;
-            transform: rotateX(75deg);
-            animation: moveGrid 15s linear infinite;
-            border-top: 2px solid var(--sa-lightblue);
-            box-shadow: 0 -10px 30px rgba(106, 205, 244, 0.5);
-        }
-
-        @keyframes moveGrid {
-            0% { transform: rotateX(75deg) translateY(0); }
-            100% { transform: rotateX(75deg) translateY(50px); }
-        }
-
-        /* Glowing Sun/Horizon */
-        .sun {
-            position: fixed;
-            bottom: 30vh;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 300px;
-            height: 300px;
-            background: linear-gradient(to bottom, var(--sa-yellow), var(--sa-orange));
-            border-radius: 50%;
-            z-index: -2;
-            box-shadow: 0 0 100px var(--sa-orange);
-            /* Sliced sun effect */
-            mask-image: linear-gradient(to bottom, black 50%, transparent 50%, transparent 55%, black 55%, black 65%, transparent 65%, transparent 72%, black 72%, black 82%, transparent 82%, transparent 92%, black 92%);
-            -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 50%, transparent 55%, black 55%, black 65%, transparent 65%, transparent 72%, black 72%, black 82%, transparent 82%, transparent 92%, black 92%);
-        }
-
-        /* Main Content Container */
-        .content {
-            position: relative;
-            z-index: 10;
-            width: 100%;
-            max-width: 1000px;
-            padding: 40px 20px;
+        /* --- LEFT PANEL --- */
+        .left-panel {
+            flex: 0 0 450px;
+            padding: 0 40px 0 80px;
             display: flex;
             flex-direction: column;
-            align-items: center;
-        }
-
-        /* Title with Glitch & Neon Effects */
-        .title-container {
-            text-align: center;
-            margin-bottom: 30px;
-            position: relative;
-        }
-
-        .title-top {
-            font-family: 'Bungee Shade', cursive;
-            font-size: clamp(2rem, 5vw, 4rem);
-            color: var(--sa-yellow);
-            text-shadow: var(--glow-orange);
-            letter-spacing: 5px;
-            margin-bottom: -10px;
-            transform: skew(-10deg);
-        }
-
-        .title-bottom {
-            font-family: 'Righteous', cursive;
-            font-size: clamp(2.5rem, 6vw, 5rem);
-            color: transparent;
-            -webkit-text-stroke: 2px var(--sa-lightblue);
-            text-shadow: var(--glow-blue);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            position: relative;
-        }
-
-        .title-bottom::before {
-            content: "BOOK WITH TREY";
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            color: var(--sa-lightblue);
-            -webkit-text-stroke: 0;
-            z-index: -1;
-            filter: blur(8px);
-            opacity: 0.7;
-        }
-
-        /* Glitch effect on hover */
-        .title-bottom:hover {
-            animation: glitch 0.2s cubic-bezier(.25, .46, .45, .94) both infinite;
-            color: var(--sa-lightblue);
-        }
-
-        @keyframes glitch {
-            0% { transform: translate(0) }
-            20% { transform: translate(-2px, 2px) }
-            40% { transform: translate(-2px, -2px) }
-            60% { transform: translate(2px, 2px) }
-            80% { transform: translate(2px, -2px) }
-            100% { transform: translate(0) }
-        }
-
-        .subtitle {
-            font-family: 'VT323', monospace;
-            font-size: 1.5rem;
-            color: #fff;
-            margin-top: 10px;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            background: rgba(0, 94, 158, 0.5);
-            padding: 5px 20px;
-            border: 1px solid var(--sa-lightblue);
-            box-shadow: 0 0 10px var(--sa-lightblue);
-            margin-bottom: 20px;
-            display: inline-block;
-        }
-
-        /* Time Selection Buttons */
-        .time-selector {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
             justify-content: center;
+            /* Soft gradient ensures text is perfectly readable over the lines */
+            background: linear-gradient(to right, rgba(255,255,255,1) 60%, rgba(255,255,255,0) 100%);
+            z-index: 10;
         }
 
-        .time-btn {
-            background: rgba(0, 0, 0, 0.6);
-            color: var(--sa-lightblue);
-            font-family: 'VT323', monospace;
-            font-size: 1.8rem;
-            padding: 10px 30px;
-            border: 2px solid var(--sa-lightblue);
-            border-radius: 0; /* Sharp corners per brand */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 80px;
+        }
+        
+        .logo-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        .logo-text {
+            font-family: 'Outfit', sans-serif;
+            font-size: 22px;
+            font-weight: 500;
+            color: #5f6368;
+            letter-spacing: -0.5px;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #202124;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            letter-spacing: -1.5px;
+        }
+        
+        h1 .dot-blue { color: #4285F4; }
+
+        p {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.125rem;
+            color: #5f6368;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            max-width: 320px;
+        }
+
+        /* Interactive Pill Selector */
+        .duration-selector {
+            display: inline-flex;
+            background: #f1f3f4;
+            border-radius: 40px;
+            padding: 6px;
+            width: max-content;
+        }
+
+        .duration-btn {
+            padding: 12px 28px;
+            border-radius: 34px;
+            border: none;
+            background: transparent;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #5f6368;
             cursor: pointer;
-            text-transform: uppercase;
-            transition: all 0.2s ease;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 0 10px rgba(106, 205, 244, 0.3);
-            text-shadow: 0 0 5px var(--sa-lightblue);
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
         }
 
-        .time-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
+        .duration-btn:hover {
+            color: #202124;
+        }
+
+        .duration-btn.active {
+            background: #ffffff;
+            color: #1a73e8;
+            box-shadow: 0 2px 8px rgba(32,33,36,0.12);
+        }
+
+        /* --- RIGHT PANEL (SEAMLESS CALENDAR) --- */
+        .right-panel {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            position: relative;
+            z-index: 5;
+        }
+
+        .calendar-wrapper {
             width: 100%;
+            max-width: 950px;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .time-btn:hover::before {
-            left: 100%;
-        }
-
-        .time-btn:hover {
-            background: rgba(106, 205, 244, 0.2);
-            box-shadow: var(--glow-blue);
-            transform: translateY(-2px);
-        }
-
-        .time-btn.active {
-            background: var(--sa-orange);
-            color: #fff;
-            border-color: var(--sa-orange);
-            box-shadow: var(--glow-orange);
-            text-shadow: 0 0 5px #fff;
-            animation: pulse-orange 2s infinite;
-        }
-        
-        @keyframes pulse-orange {
-            0% { box-shadow: 0 0 10px #F7941E; }
-            50% { box-shadow: 0 0 25px #F7941E, 0 0 40px #F7941E; }
-            100% { box-shadow: 0 0 10px #F7941E; }
-        }
-
-        /* Calendar Container - Glowing Glassmorphism */
-        .calendar-container {
-            width: 100%;
-            background: rgba(5, 5, 16, 0.7);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 2px solid var(--sa-orange);
-            border-radius: 0;
-            padding: 20px;
-            box-shadow: 0 0 20px rgba(247, 148, 30, 0.4), inset 0 0 20px rgba(247, 148, 30, 0.2);
+            background: #ffffff; /* Solid white blocks the background art */
             position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .calendar-container.loading {
-            animation: flicker 0.5s infinite alternate;
-        }
-
-        @keyframes flicker {
-            0% { opacity: 0.8; border-color: var(--sa-yellow); }
-            100% { opacity: 1; border-color: var(--sa-orange); }
-        }
-
-        .calendar-container:hover {
-            box-shadow: 0 0 40px rgba(247, 148, 30, 0.6), inset 0 0 30px rgba(247, 148, 30, 0.3);
-            border-color: var(--sa-yellow);
-        }
-
-        /* Corner decorations for the container */
-        .calendar-container::before, .calendar-container::after {
-            content: '';
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            border: 3px solid var(--sa-lightblue);
-            pointer-events: none;
-            z-index: 5;
-            transition: all 0.3s ease;
-        }
-
-        .calendar-container.active-blue::before,
-        .calendar-container.active-blue::after {
-            border-color: var(--sa-lightblue);
-            box-shadow: var(--glow-blue);
-        }
-        
-        .calendar-container.active-orange::before,
-        .calendar-container.active-orange::after {
-            border-color: var(--sa-orange);
-            box-shadow: var(--glow-orange);
-        }
-        
-        .calendar-container.active-yellow::before,
-        .calendar-container.active-yellow::after {
-            border-color: var(--sa-yellow);
-            box-shadow: var(--glow-yellow);
-        }
-
-        .calendar-container::before {
-            top: 10px;
-            left: 10px;
-            border-right: none;
-            border-bottom: none;
-        }
-
-        .calendar-container::after {
-            bottom: 10px;
-            right: 10px;
-            border-left: none;
-            border-top: none;
-        }
-
-        .calendar-iframe-wrapper {
-            width: 100%;
-            height: 650px;
-            background: #000;
-            position: relative;
-            overflow: hidden;
-            border-radius: 4px;
-            box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8);
-            transition: opacity 0.3s ease;
-        }
-        
-        /* CRT screen scanline overlay directly over the calendar */
-        .calendar-iframe-wrapper::after {
-            content: " ";
-            display: block;
-            position: absolute;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
-            background-size: 100% 4px, 3px 100%;
-            pointer-events: none;
-            box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
-            z-index: 5;
+            /* This shadow is the MAGIC: It casts a pure white soft fade to the left, 
+               making the background art seamlessly dissolve into the calendar */
+            box-shadow: -80px 0 80px 40px #ffffff;
         }
 
         iframe {
             width: 100%;
             height: 100%;
-            border: 0;
-            /* Hacker dark mode trick: invert the whole iframe, then hue-rotate to bring back the blue colors */
-            filter: invert(90%) hue-rotate(180deg) saturate(1.5) contrast(1.1) brightness(1.1);
-        }
-
-        /* Loading Overlay for Iframe switching */
-        .loading-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: var(--sa-lightblue);
-            font-family: 'VT323', monospace;
-            font-size: 2rem;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            z-index: 10;
-            opacity: 0;
-            pointer-events: none;
+            border: none;
+            position: relative;
+            z-index: 5;
+            opacity: 1;
             transition: opacity 0.3s ease;
         }
 
-        .loading-overlay.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        /* Floating particles */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .particle {
+        /* Loading Google Dots Overlay */
+        .loading-dots {
             position: absolute;
-            background: var(--sa-yellow);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            gap: 8px;
+            z-index: 2; /* Sits behind iframe, visible when iframe opacity drops */
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .loading-dots.active {
+            opacity: 1;
+        }
+
+        .loading-dots .dot {
+            width: 14px; height: 14px;
             border-radius: 50%;
-            box-shadow: 0 0 10px var(--sa-yellow);
-            animation: float-up linear infinite;
+            animation: googleBounce 1.4s infinite ease-in-out both;
+        }
+        .loading-dots .blue { background: #4285F4; animation-delay: -0.32s; }
+        .loading-dots .red { background: #EA4335; animation-delay: -0.16s; }
+        .loading-dots .yellow { background: #FBBC05; animation-delay: -0.08s; }
+        .loading-dots .green { background: #34A853; animation-delay: 0s; }
+
+        @keyframes googleBounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
         }
 
-        @keyframes float-up {
-            0% { transform: translateY(100vh) scale(0); opacity: 0; }
-            50% { opacity: 1; }
-            100% { transform: translateY(-100px) scale(1); opacity: 0; }
+        /* Mobile */
+        @media (max-width: 900px) {
+            .layout { flex-direction: column; }
+            .left-panel {
+                flex: none;
+                width: 100%;
+                padding: 40px 24px;
+                background: linear-gradient(to bottom, rgba(255,255,255,1) 80%, rgba(255,255,255,0) 100%);
+            }
+            .calendar-wrapper {
+                box-shadow: 0 -80px 80px 40px #ffffff;
+            }
         }
-
     </style>
 </head>
 <body>
-    <!-- Retro Background Elements -->
-    <div class="sun"></div>
-    <div class="grid-container">
-        <div class="grid"></div>
+
+    <!-- Google Developer Art Background -->
+    <div class="background-art">
+        <svg class="google-lines" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+            <path d="M-200,800 C 100,700 400,200 1200,300" fill="none" stroke-width="6" class="anim-line blue-line" />
+            <path d="M-200,200 C 200,400 600,900 1200,600" fill="none" stroke-width="10" class="anim-line red-line" />
+            <path d="M 300,-200 C 200,300 800,800 600,1200" fill="none" stroke-width="5" class="anim-line yellow-line" />
+            <path d="M 800,-200 C 700,200 100,600 300,1200" fill="none" stroke-width="8" class="anim-line green-line" />
+            <path d="M-200,500 C 300,600 700,100 1200,200" fill="none" stroke-width="4" class="anim-line blue-line-2" />
+            <path d="M 0,1200 C 400,800 500,200 1200,900" fill="none" stroke-width="6" class="anim-line red-line-2" />
+        </svg>
+        <div class="shapes">
+            <div class="shape circle solid blue" style="top: 20%; left: 30%; animation-delay: 0s;"></div>
+            <div class="shape circle hollow red" style="top: 70%; left: 10%; animation-delay: -3s;"></div>
+            <div class="shape triangle green" style="top: 80%; left: 35%; animation-delay: -7s;"></div>
+            <div class="shape plus yellow" style="top: 15%; left: 55%; animation-delay: -2s;"></div>
+            <div class="shape square hollow blue" style="top: 45%; left: 45%; animation-delay: -5s;"></div>
+            <div class="shape dot red" style="top: 50%; left: 20%; animation-delay: -1s;"></div>
+            <div class="shape dot green" style="top: 30%; left: 10%; animation-delay: -4s;"></div>
+            <div class="shape dot yellow" style="top: 85%; left: 25%; animation-delay: -6s;"></div>
+        </div>
     </div>
-    
-    <!-- Floating Particles -->
-    <div class="particles" id="particles"></div>
 
-    <div class="content">
-        <div class="title-container">
-            <div class="title-top">SUCCESS ACADEMY</div>
-            <div class="title-bottom">BOOK WITH TREY</div>
+    <!-- UI Layout -->
+    <div class="layout">
+        <div class="left-panel">
+            <div class="logo">
+                <svg class="logo-icon" viewBox="0 0 24 24">
+                    <path d="M12 2 L22 20 H2 Z" fill="#4285F4" opacity="0.9"/>
+                    <circle cx="12" cy="14" r="6" fill="#FBBC05" opacity="0.9"/>
+                    <path d="M12 22 L2 4 H22 Z" fill="#EA4335" opacity="0.7"/>
+                </svg>
+                <span class="logo-text">Success Academy</span>
+            </div>
+            
+            <h1>Book a session<span class="dot-blue">.</span></h1>
+            <p>Select your desired duration below. The calendar instantly updates to show available times.</p>
+            
+            <div class="duration-selector">
+                <button class="duration-btn" data-url="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0I-Zl9F8XEN-aSFW6Exph-jst-9yMMwbEGoyYQH0yKJh4P95Xa3UFwohtAM3iOoBNpabXyPi0C?gv=true">15 Min</button>
+                <button class="duration-btn active" data-url="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2g_Gq44x_A6rLNj2kRONtMIu2tGLrMjBMH5WfKsopBS9hHYDscMpvL34e9fTZIOKuRvkflvgCc?gv=true">30 Min</button>
+                <button class="duration-btn" data-url="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1GgmXp1kslcwHCAENqOeCN6qs5nG9fGZnbdEVz8fIBpK4E2Uvi-9SQCzN-w5tNe8BeTs77cHhF?gv=true">60 Min</button>
+            </div>
         </div>
 
-        <div class="subtitle" id="status-subtitle">SELECT APPOINTMENT DURATION</div>
-
-        <!-- 80s Arcade Style Duration Selection -->
-        <div class="time-selector">
-            <button class="time-btn" data-time="15" data-color="blue" data-url="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0I-Zl9F8XEN-aSFW6Exph-jst-9yMMwbEGoyYQH0yKJh4P95Xa3UFwohtAM3iOoBNpabXyPi0C?gv=true">
-                15 MIN
-            </button>
-            <button class="time-btn active" data-time="30" data-color="orange" data-url="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2g_Gq44x_A6rLNj2kRONtMIu2tGLrMjBMH5WfKsopBS9hHYDscMpvL34e9fTZIOKuRvkflvgCc?gv=true">
-                30 MIN
-            </button>
-            <button class="time-btn" data-time="60" data-color="yellow" data-url="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1GgmXp1kslcwHCAENqOeCN6qs5nG9fGZnbdEVz8fIBpK4E2Uvi-9SQCzN-w5tNe8BeTs77cHhF?gv=true">
-                60 MIN
-            </button>
-        </div>
-
-        <div class="calendar-container active-orange" id="calContainer">
-            <div class="calendar-iframe-wrapper">
-                <div class="loading-overlay" id="loadingOverlay">
-                    <span id="loadingText">LOADING CALENDAR...</span>
+        <div class="right-panel">
+            <div class="calendar-wrapper">
+                <div class="loading-dots" id="loadingDots">
+                    <div class="dot blue"></div>
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
                 </div>
-                <!-- Default to 30 min -->
-                <iframe id="calendarFrame" src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2g_Gq44x_A6rLNj2kRONtMIu2tGLrMjBMH5WfKsopBS9hHYDscMpvL34e9fTZIOKuRvkflvgCc?gv=true" frameborder="0"></iframe>
+                <iframe id="calendarFrame" src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2g_Gq44x_A6rLNj2kRONtMIu2tGLrMjBMH5WfKsopBS9hHYDscMpvL34e9fTZIOKuRvkflvgCc?gv=true"></iframe>
             </div>
         </div>
     </div>
 
     <script>
-        // --- 80s Cyberpunk Particles ---
-        const particlesContainer = document.getElementById('particles');
-        const colors = ['#F7941E', '#6ACDF4', '#EDC211']; // SA Brand colors
-
-        for (let i = 0; i < 30; i++) {
-            const particle = document.createElement('div');
-            particle.classList.add('particle');
-            
-            const size = Math.random() * 4 + 2;
-            const left = Math.random() * 100;
-            const duration = Math.random() * 10 + 5;
-            const delay = Math.random() * 5;
-            const color = colors[Math.floor(Math.random() * colors.length)];
-            
-            particle.style.width = `${size}px`;
-            particle.style.height = `${size}px`;
-            particle.style.left = `${left}%`;
-            particle.style.animationDuration = `${duration}s`;
-            particle.style.animationDelay = `${delay}s`;
-            particle.style.background = color;
-            particle.style.boxShadow = `0 0 ${size * 3}px ${color}`;
-            
-            particlesContainer.appendChild(particle);
-        }
-
-        // --- Duration Selection Logic ---
-        const buttons = document.querySelectorAll('.time-btn');
+        const buttons = document.querySelectorAll('.duration-btn');
         const iframe = document.getElementById('calendarFrame');
-        const calContainer = document.getElementById('calContainer');
-        const overlay = document.getElementById('loadingOverlay');
-        const subtitle = document.getElementById('status-subtitle');
-        const loadingText = document.getElementById('loadingText');
-
-        // Professional loading texts
-        const loadingTexts = [
-            "LOADING CALENDAR...",
-            "UPDATING AVAILABILITY...",
-            "FETCHING SCHEDULE..."
-        ];
+        const loadingDots = document.getElementById('loadingDots');
 
         buttons.forEach(btn => {
             btn.addEventListener('click', function() {
-                // Ignore if already active
                 if(this.classList.contains('active')) return;
 
                 const url = this.getAttribute('data-url');
-                const time = this.getAttribute('data-time');
-                const colorTheme = this.getAttribute('data-color');
 
-                // Update Buttons
-                buttons.forEach(b => {
-                    b.classList.remove('active');
-                    // Reset styling to default
-                    b.style.background = '';
-                    b.style.borderColor = '';
-                    b.style.boxShadow = '';
-                    b.style.animation = '';
-                });
-
-                // Set new active button styles based on color theme
+                // Update UI state
+                buttons.forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
                 
-                // Set theme colors to match brand guidelines
-                let themeHex = '';
-                if(colorTheme === 'blue') themeHex = '#6ACDF4';
-                if(colorTheme === 'orange') themeHex = '#F7941E';
-                if(colorTheme === 'yellow') themeHex = '#EDC211';
-
-                this.style.background = themeHex;
-                this.style.borderColor = themeHex;
-                this.style.boxShadow = `0 0 10px ${themeHex}, 0 0 20px ${themeHex}`;
+                // Show Google bouncing dots
+                iframe.style.opacity = '0';
+                loadingDots.classList.add('active');
                 
-                // Update Container Theme
-                calContainer.className = `calendar-container active-${colorTheme}`;
-                calContainer.style.borderColor = themeHex;
-
-                // Update Status Text
-                subtitle.innerText = `DURATION: ${time} MINUTES`;
-
-                // Show loading overlay
-                overlay.classList.add('active');
-                calContainer.classList.add('loading');
-                loadingText.innerText = loadingTexts[Math.floor(Math.random() * loadingTexts.length)];
-                
-                // Change the iframe source
+                // Load new calendar
                 setTimeout(() => {
                     iframe.src = url;
-                }, 400); // Slight delay so the user sees the overlay transition
+                }, 300);
 
-                // Hide loading after a bit
+                // Reveal seamless calendar
                 setTimeout(() => {
-                    overlay.classList.remove('active');
-                    calContainer.classList.remove('loading');
-                }, 1500);
+                    iframe.style.opacity = '1';
+                    loadingDots.classList.remove('active');
+                }, 1200);
             });
         });
     </script>
