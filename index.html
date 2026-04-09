@@ -163,19 +163,11 @@
             opacity: 0.7;
         }
 
-        /* Glitch effect on hover */
+        // Brighten effect on hover
         .title-bottom:hover {
-            animation: glitch 0.2s cubic-bezier(.25, .46, .45, .94) both infinite;
-            color: var(--sa-lightblue);
-        }
-
-        @keyframes glitch {
-            0% { transform: translate(0) }
-            20% { transform: translate(-2px, 2px) }
-            40% { transform: translate(-2px, -2px) }
-            60% { transform: translate(2px, 2px) }
-            80% { transform: translate(2px, -2px) }
-            100% { transform: translate(0) }
+            color: #fff;
+            text-shadow: 0 0 20px var(--sa-lightblue), 0 0 40px var(--sa-lightblue), 0 0 60px #fff;
+            transition: all 0.3s ease;
         }
 
         .subtitle {
@@ -431,7 +423,6 @@
             position: absolute;
             fill: #00A1E0; /* Salesforce Blue */
             animation: move-cloud linear infinite;
-            filter: drop-shadow(0 0 15px rgba(0, 161, 224, 0.4));
         }
 
         @keyframes move-cloud {
@@ -584,7 +575,7 @@
 
         // --- Salesforce Blue Clouds ---
         const cloudsContainer = document.getElementById('clouds');
-        const numClouds = 6;
+        const numClouds = 5;
         
         // Much better looking, fluffy cloud SVG path
         const cloudPath = 'M182.093 141.401C189.016 134.231 198.659 129.698 209.291 129.698C223.467 129.698 235.747 137.61 242.341 149.313C248.027 146.758 254.374 145.357 261.049 145.357C286.599 145.357 307.203 166.209 307.203 191.923C307.203 217.637 286.516 238.489 261.049 238.489C257.918 238.489 254.868 238.159 251.984 237.582C246.214 247.885 235.17 254.89 222.478 254.89C217.203 254.89 212.176 253.654 207.725 251.511C201.874 265.275 188.192 275 172.286 275C155.72 275 141.544 264.533 136.104 249.78C133.714 250.275 131.242 250.522 128.769 250.522C108.989 250.522 93 234.368 93 214.341C93 200.989 100.17 189.286 110.885 183.022C108.659 177.995 107.423 172.39 107.423 166.456C107.341 143.626 126.049 125 148.962 125C162.478 125 174.511 131.429 182.093 141.401';
@@ -601,9 +592,16 @@
             
             const size = Math.random() * 200 + 100; // 100px to 300px wide
             const top = Math.random() * 40; // Top 40% of the screen
-            const duration = Math.random() * 60 + 40; // 40s to 100s duration (slow drift)
-            const delay = Math.random() * -100; // Spread evenly across the timeline
-            const opacity = Math.random() * 0.3 + 0.15; // Slightly lower opacity so they look more atmospheric
+            
+            // 3D Parallax Effect:
+            // Smaller clouds are further away in the background, so they should move slower (longer duration)
+            // Size 100px -> ~120s duration. Size 300px -> ~40s duration.
+            const duration = 120 - ((size - 100) / 200) * 80; 
+            
+            // Depth effect: smaller clouds in the background are slightly more faded
+            const opacity = 0.15 + ((size - 100) / 200) * 0.25;
+            
+            const delay = Math.random() * -120; // Spread evenly across the timeline
             
             svg.style.width = `${size}px`;
             svg.style.height = `${size}px`;
@@ -612,11 +610,9 @@
             svg.style.animationDuration = `${duration}s`;
             svg.style.animationDelay = `${delay}s`;
             
-            // Flip some clouds for variety
-            if (i % 2 === 0) {
-                path.style.transform = "scaleX(-1)";
-                path.style.transformOrigin = "center";
-            }
+            // Parallax z-index: larger clouds in front, smaller in back
+            // Base z-index is -3. Let's stack them based on size.
+            svg.style.zIndex = Math.floor(size / 50) - 10; 
             
             cloudsContainer.appendChild(svg);
         }
