@@ -415,10 +415,35 @@
             100% { transform: translateY(-100px) scale(1); opacity: 0; }
         }
 
+        /* Salesforce Clouds */
+        .clouds {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -3; /* Behind grid and sun */
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .cloud-svg {
+            position: absolute;
+            fill: #00A1E0; /* Salesforce Blue */
+            animation: move-cloud linear infinite;
+            filter: drop-shadow(0 0 15px rgba(0, 161, 224, 0.4));
+        }
+
+        @keyframes move-cloud {
+            0% { transform: translateX(110vw); }
+            100% { transform: translateX(-300px); }
+        }
+
     </style>
 </head>
 <body>
     <!-- Retro Background Elements -->
+    <div class="clouds" id="clouds"></div>
     <div class="sun"></div>
     <div class="grid-container">
         <div class="grid"></div>
@@ -556,6 +581,45 @@
                 }, 1500);
             });
         });
+
+        // --- Salesforce Blue Clouds ---
+        const cloudsContainer = document.getElementById('clouds');
+        const numClouds = 6;
+        
+        // Much better looking, fluffy cloud SVG path
+        const cloudPath = 'M404.1,192.4c-4.9-63.5-57.9-112.5-122.5-112.5c-43.2,0-81.1,22.2-103.4,56.1C164.2,122.6,145.4,115,124.9,115c-45.7,0-83,36.5-84.8,81.9C17.2,204.1,0,224.6,0,248c0,35.3,28.7,64,64,64h340c48.6,0,88-39.4,88-88C492,185.3,454,149.2,404.1,192.4z';
+
+        for (let i = 0; i < numClouds; i++) {
+            const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            // Updated viewBox to match the new coordinates
+            svg.setAttribute("viewBox", "0 0 500 320");
+            svg.classList.add('cloud-svg');
+            
+            const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            path.setAttribute("d", cloudPath);
+            svg.appendChild(path);
+            
+            const size = Math.random() * 200 + 100; // 100px to 300px wide
+            const top = Math.random() * 40; // Top 40% of the screen
+            const duration = Math.random() * 60 + 40; // 40s to 100s duration (slow drift)
+            const delay = Math.random() * -100; // Spread evenly across the timeline
+            const opacity = Math.random() * 0.3 + 0.15; // Slightly lower opacity so they look more atmospheric
+            
+            svg.style.width = `${size}px`;
+            svg.style.height = `${size * (320/500)}px`;
+            svg.style.top = `${top}%`;
+            svg.style.opacity = opacity;
+            svg.style.animationDuration = `${duration}s`;
+            svg.style.animationDelay = `${delay}s`;
+            
+            // Flip some clouds for variety
+            if (i % 2 === 0) {
+                path.style.transform = "scaleX(-1)";
+                path.style.transformOrigin = "center";
+            }
+            
+            cloudsContainer.appendChild(svg);
+        }
     </script>
 </body>
 </html>
