@@ -589,21 +589,21 @@
         // Much better looking, fluffy cloud SVG path
         const cloudPath = 'M182.093 141.401C189.016 134.231 198.659 129.698 209.291 129.698C223.467 129.698 235.747 137.61 242.341 149.313C248.027 146.758 254.374 145.357 261.049 145.357C286.599 145.357 307.203 166.209 307.203 191.923C307.203 217.637 286.516 238.489 261.049 238.489C257.918 238.489 254.868 238.159 251.984 237.582C246.214 247.885 235.17 254.89 222.478 254.89C217.203 254.89 212.176 253.654 207.725 251.511C201.874 265.275 188.192 275 172.286 275C155.72 275 141.544 264.533 136.104 249.78C133.714 250.275 131.242 250.522 128.769 250.522C108.989 250.522 93 234.368 93 214.341C93 200.989 100.17 189.286 110.885 183.022C108.659 177.995 107.423 172.39 107.423 166.456C107.341 143.626 126.049 125 148.962 125C162.478 125 174.511 131.429 182.093 141.401';
 
+        let cloudsSinceLastOrange = 0;
+        let nextOrangeTarget = Math.floor(Math.random() * 3) + 5; // 5, 6, or 7
+
         for (let i = 0; i < numClouds; i++) {
             const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
             // Updated viewBox to match the new coordinates
             svg.setAttribute("viewBox", "0 0 400 400");
             svg.classList.add('cloud-svg');
             
-            // "Every 5-7th cloud should be SA orange"
-            // We use a bit of math to make it roughly every 5th, 6th, or 7th cloud predictably
-            // but we can also just do a 15-20% chance if we want it to feel organic.
-            // Let's implement a strict counter to ensure it's precisely every 5 to 7.
-            // But since this is a loop, we can just check if i % 6 === 0 (every 6th) or inject some randomness.
-            // A simple randomized check: 
-            const isOrange = (i % 6 === 5) || (Math.random() > 0.85);
-            if (isOrange) {
+            // Strictly every 5th to 7th cloud is orange
+            cloudsSinceLastOrange++;
+            if (cloudsSinceLastOrange >= nextOrangeTarget) {
                 svg.style.fill = '#F7941E'; 
+                cloudsSinceLastOrange = 0;
+                nextOrangeTarget = Math.floor(Math.random() * 3) + 5; // Pick a new target between 5 and 7
             }
             
             const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
