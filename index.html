@@ -170,8 +170,8 @@
         .title-bottom:hover {
             color: #fff;
             -webkit-text-stroke: 0;
-            text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 40px var(--sa-lightblue), 0 0 80px var(--sa-lightblue);
-            transform: scale(1.02);
+            text-shadow: 0 0 10px #fff, 0 0 20px var(--sa-lightblue), 0 0 40px var(--sa-lightblue);
+            transform: scale(1.01);
         }
         
         .title-bottom:hover::before {
@@ -422,10 +422,13 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100vh;
+            height: 55vh; /* Limit clouds to top half above horizon */
             z-index: -3; /* Behind grid and sun */
             pointer-events: none;
             overflow: hidden;
+            /* Fade out cleanly as they approach the horizon */
+            mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
         }
 
         .cloud-svg {
