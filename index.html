@@ -442,26 +442,6 @@
             100% { transform: translateX(-1000px); }
         }
 
-        /* Shooting Star */
-        .shooting-star {
-            position: fixed;
-            width: 120px;
-            height: 2px;
-            background: linear-gradient(to left, rgba(255, 255, 255, 0.9), transparent);
-            border-radius: 2px;
-            z-index: 0;
-            pointer-events: none;
-            opacity: 0;
-            box-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
-        }
-
-        @keyframes shootingStar {
-            0% { opacity: 0; transform: translate(0, 0) rotate(-35deg); }
-            5% { opacity: 1; }
-            70% { opacity: 1; }
-            100% { opacity: 0; transform: translate(-90vw, 60vh) rotate(-35deg); }
-        }
-
     </style>
 </head>
 <body>
@@ -661,36 +641,6 @@
             
             cloudsContainer.appendChild(svg);
         }
-
-        // --- Shooting Stars ---
-        function launchShootingStar() {
-            const star = document.createElement('div');
-            star.classList.add('shooting-star');
-            
-            // Random start position in the upper right area of the screen
-            const startX = Math.random() * 40 + 60; // 60% to 100% from left
-            const startY = Math.random() * 30; // Top 30% of screen
-            
-            // Random length and thickness
-            const length = Math.random() * 100 + 80; // 80px to 180px
-            
-            star.style.left = `${startX}vw`;
-            star.style.top = `${startY}vh`;
-            star.style.width = `${length}px`;
-            star.style.animation = `shootingStar ${Math.random() * 0.5 + 0.6}s linear forwards`;
-            
-            document.body.appendChild(star);
-            
-            // Clean up after animation
-            star.addEventListener('animationend', () => star.remove());
-            
-            // Schedule the next one at a random interval between 8 and 30 seconds
-            const nextDelay = (Math.random() * 22 + 8) * 1000;
-            setTimeout(launchShootingStar, nextDelay);
-        }
-
-        // Kick off the first one after a random initial delay
-        setTimeout(launchShootingStar, (Math.random() * 10 + 3) * 1000);
     </script>
 </body>
 </html>
